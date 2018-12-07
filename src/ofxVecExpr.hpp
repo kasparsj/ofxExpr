@@ -30,53 +30,10 @@ public:
     bool hasExprSymbol(const std::string &name) const;
     bool addVar(const std::string &name, float &value, bool recompile = true);
     bool addDummyVar(const std::string &name, bool recompile = false);
+    bool hasConst(const std::string &name) const;
+    bool addConst(const std::string &name, const float &value, bool recompile = true);
     bool compile();
     bool isExplicit() const;
-    
-#ifdef ofxexpr_use_exprtk
-    
-    bool hasConst(const std::string &name) const {
-        for (int i=0; i<size(); i++) {
-            if (expr[i]->hasConst(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    bool hasStringvar(const std::string &name) const {
-        for (int i=0; i<size(); i++) {
-            if (expr[i]->hasStringvar(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    bool hasVector(const std::string &name) const {
-        for (int i=0; i<size(); i++) {
-            if (expr[i]->hasVector(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    bool addConst(const std::string &name, const float &value, bool recompile = true) {
-        for (int i=0; i<size(); i++) {
-            expr[i]->addConst(name, value, recompile);
-        }
-    }
-    bool addStringvar(const std::string &name, std::string &value, bool recompile = true) {
-        for (int i=0; i<size(); i++) {
-            expr[i]->addStringvar(name, value, recompile);
-        }
-    }
-    template<typename VecType1>
-    bool addVector(const std::string &name, std::vector<VecType1> &value, bool recompile = true) {
-        for (int i=0; i<size(); i++) {
-            expr[i]->addVector(name, value, recompile);
-        }
-    }
-    
-#endif
     
     using ofParameterGroup::get;
     const std::shared_ptr<ofxExpr> & operator [] (const int i) const {

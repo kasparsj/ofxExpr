@@ -2,6 +2,7 @@
 
 #include "ofParameter.h"
 #include "muParser.h"
+#include "ofxExprParser.hpp"
 
 class ofxExpr : public ofParameterGroup {
     
@@ -99,7 +100,7 @@ public:
     
 private:
     
-    mu::Parser parser;
+    ofxExprParser parser;
     float dummyVal;
     bool compiled = false;
     

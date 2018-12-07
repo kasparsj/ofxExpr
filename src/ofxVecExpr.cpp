@@ -192,6 +192,23 @@ bool ofxVecExpr<VecType>::addDummyVar(const std::string &name, bool recompile) {
 }
 
 template<typename VecType>
+bool ofxVecExpr<VecType>::hasConst(const std::string &name) const {
+    for (int i=0; i<size(); i++) {
+        if (expr[i]->hasConst(name)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template<typename VecType>
+bool ofxVecExpr<VecType>::addConst(const std::string &name, const float &value, bool recompile) {
+    for (int i=0; i<size(); i++) {
+        expr[i]->addConst(name, value, recompile);
+    }
+}
+
+template<typename VecType>
 bool ofxVecExpr<VecType>::compile() {
     for (int i=0; i<size(); i++) {
         expr[i]->compile();

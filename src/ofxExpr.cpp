@@ -1,9 +1,7 @@
 #include "ofxExpr.hpp"
 
 const std::string ofxExpr::NAME_EXPR = "expression";
-
 const std::string ofxExpr::NAME_VALUE = "value";
-
 const std::string ofxExpr::NAME_EXPLICIT = "explicit";
 
 ofxExpr::ofxExpr() : ofParameterGroup() {
@@ -106,14 +104,24 @@ ofxExpr & ofxExpr::setExplicit(bool isExplicit) {
 
 const float ofxExpr::getExprValue() const {
     if (compiled) {
-        return parser.Eval();
+        try {
+            return parser.Eval();
+        }
+        catch (mu::Parser::exception_type &e) {
+            return getValue();
+        }
     }
-    return 0;
+    return getValue();
 }
 
 bool ofxExpr::hasVar(const std::string &name) const {
-    const mu::varmap_type &variables = parser.GetVar();
-    return variables.find(name) != variables.end();
+    try {
+        const mu::varmap_type &variables = parser.GetVar();
+        return variables.find(name) != variables.end();
+    }
+    catch (mu::Parser::exception_type &e) {
+        return false;
+    }
 }
 
 bool ofxExpr::addVar(const std::string &name, float &value, bool recompile) {
@@ -135,8 +143,13 @@ bool ofxExpr::addDummyVar(const std::string &name, bool recompile) {
 }
 
 bool ofxExpr::hasConst(const std::string &name) const {
-    const mu::valmap_type &cmap = parser.GetConst();
-    return cmap.find(name) != cmap.end();
+    try {
+        const mu::valmap_type &cmap = parser.GetConst();
+        return cmap.find(name) != cmap.end();
+    }
+    catch (mu::Parser::exception_type &e) {
+        return false;
+    }
 }
 
 bool ofxExpr::addConst(const std::string &name, const float &value, bool recompile) {
@@ -149,7 +162,13 @@ bool ofxExpr::addConst(const std::string &name, const float &value, bool recompi
 }
 
 bool ofxExpr::hasExprSymbol(const std::string &name) const {
-    return pExpr->get().find(name) != std::string::npos;
+    try {
+        const mu::varmap_type &uv = parser.GetUsedVar();
+        return uv.find(name) != uv.end();
+    }
+    catch (mu::Parser::exception_type &e) {
+        return false;
+    }
 }
 
 bool ofxExpr::compile() {
