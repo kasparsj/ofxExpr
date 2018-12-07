@@ -31,5 +31,6 @@ public:
     
 private:
     static float rand(const float* v, int numArgs);
+    static float noise(const float* v, int numArgs);
     
 };
