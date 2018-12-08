@@ -1,0 +1,3 @@
+[submodule "libs/muparser/src"]
+	path = libs/muparser/src
+	url = git@github.com:kasparsj/muparser.git

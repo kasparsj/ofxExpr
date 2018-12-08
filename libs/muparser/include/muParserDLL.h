@@ -47,7 +47,7 @@ typedef void*  muParserHandle_t;    // parser handle
 
 typedef int    muBool_t;            // boolean type
 typedef int    muInt_t;             // integer type 
-typedef double muFloat_t;           // floating point type
+typedef float muFloat_t;           // floating point type
 
 // function types for calculation
 typedef muFloat_t (*muFun0_t )(); 

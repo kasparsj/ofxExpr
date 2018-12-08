@@ -49,9 +49,11 @@ public:
     ofxExpr & setExplicit(bool isExplicit);
     void setMin(const float &min) {
         pValue->setMin(min);
+        parser.setMin(min);
     }
     void setMax(const float &max) {
         pValue->setMax(max);
+        parser.setMax(max);
     }
     ofxExpr & setSliderMinMax(const float &min, const float &max) {
         pValue->setSliderMinMax(min, max);

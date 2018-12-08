@@ -71,6 +71,8 @@ ofxExpr & ofxExpr::set(const float &value, bool isExplicit) {
 
 ofxExpr & ofxExpr::set(const float &value, const float &min, const float &max, bool isExplicit) {
     pValue->set(NAME_VALUE, value, min, max);
+    parser.setMin(min);
+    parser.setMax(max);
     pExplicit->set(isExplicit);
     return *this;
 }
@@ -85,6 +87,8 @@ ofxExpr & ofxExpr::set(const std::string &name, const float &value, bool isExpli
 ofxExpr & ofxExpr::set(const std::string &name, const float &value, const float &min, const float &max, bool isExplicit) {
     setName(name);
     pValue->set(NAME_VALUE, value, min, max);
+    parser.setMin(min);
+    parser.setMax(max);
     pExplicit->set(isExplicit);
     return *this;
 }
@@ -93,6 +97,8 @@ ofxExpr & ofxExpr::set(const std::string &name, const std::string &expression, c
     setName(name);
     pExpr->set(expression);
     pValue->set(NAME_VALUE, value, min, max);
+    parser.setMin(min);
+    parser.setMax(max);
     pExplicit->set(isExplicit);
     return *this;
 }
