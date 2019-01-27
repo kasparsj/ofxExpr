@@ -5,7 +5,7 @@ const std::string ofxExpr::NAME_VALUE = "value";
 const std::string ofxExpr::NAME_EXPLICIT = "explicit";
 
 ofxExpr::ofxExpr() : ofParameterGroup() {
-    pExpr = std::make_shared<ofParameter<std::string>>(NAME_EXPR, "");
+    setExprParameter(std::make_shared<ofParameter<std::string>>(NAME_EXPR, ""));
     add(*pExpr);
     pValue = std::make_shared<ofParameter<float>>(NAME_VALUE, 0.f);
     add(*pValue);
@@ -31,10 +31,16 @@ ofxExpr::ofxExpr(const std::string &name, const float &value, const float &min, 
 
 ofxExpr::ofxExpr(const ofxExpr& other) : ofParameterGroup() {
     setName(other.getName());
-    pExpr = other.getExpressionParameter();
+    setExprParameter(other.getExpressionParameter());
     pValue = other.getValueParameter();
     pExplicit = other.getExplicitParameter();
     parser = other.getParser();
+}
+
+ofxExpr::~ofxExpr() {
+    if (pExpr != NULL) {
+        pExpr->removeListener(this, &ofxExpr::onChangeExpr);
+    }
 }
 
 ofxExpr& ofxExpr::operator= (const ofxExpr& other) {
@@ -53,13 +59,9 @@ float ofxExpr::get() const  {
     return getExprValue();
 }
 
-ofxExpr & ofxExpr::set(const std::string &expression, bool recompile) {
+ofxExpr & ofxExpr::set(const std::string &expression) {
     pExpr->set(expression);
     pExplicit->set(false);
-    compiled = false;
-    if (recompile) {
-        compile();
-    }
     return *this;
 }
 
@@ -132,19 +134,13 @@ bool ofxExpr::hasVar(const std::string &name) const {
 
 bool ofxExpr::addVar(const std::string &name, float &value, bool recompile) {
     parser.DefineVar(name, &value);
-    compiled = false;
-    if (recompile) {
-        return compile();
-    }
+    notCompiled(recompile);
     return true;
 }
 
 bool ofxExpr::addDummyVar(const std::string &name, bool recompile) {
     parser.DefineVar(name, &dummyVal);
-    compiled = false;
-    if (recompile) {
-        return compile();
-    }
+    notCompiled(recompile);
     return true;
 }
 
@@ -160,10 +156,7 @@ bool ofxExpr::hasConst(const std::string &name) const {
 
 bool ofxExpr::addConst(const std::string &name, const float &value, bool recompile) {
     parser.DefineConst(name, value);
-    compiled = false;
-    if (recompile) {
-        return compile();
-    }
+    notCompiled(recompile);
     return true;
 }
 
@@ -177,16 +170,18 @@ bool ofxExpr::hasExprSymbol(const std::string &name) const {
     }
 }
 
+bool ofxExpr::isTimeDependent() const {
+    return hasExprSymbol("t") || hasExprSymbol("f");
+}
+
 bool ofxExpr::compile() {
-    if (!compiled) {
-        try {
-            parser.SetExpr(pExpr->get());
-            compiled = true;
-        }
-        catch (mu::Parser::exception_type &e) {
-            compiled = false;
-            ofLog() << "ofxExpr compile error: " << e.GetMsg();
-        }
+    try {
+        parser.SetExpr(pExpr->get());
+        compiled = true;
+    }
+    catch (mu::Parser::exception_type &e) {
+        compiled = false;
+        ofLog() << "ofxExpr compile error: " << e.GetMsg();
     }
     return compiled;
 }
@@ -207,8 +202,29 @@ std::shared_ptr<ofAbstractParameter> ofxExpr::newReference() const{
 
 void ofxExpr::makeReferenceTo(ofxExpr & mom) {
     setName(mom.getName());
-    pExpr = mom.getExpressionParameter();
+    setExprParameter(mom.getExpressionParameter());
     pValue = mom.getValueParameter();
     pExplicit = mom.getExplicitParameter();
     parser = mom.getParser();
+}
+
+void ofxExpr::setExprParameter(const std::shared_ptr<ofParameter<std::string>> & _pExpr)  {
+    if (pExpr != NULL) {
+        pExpr->removeListener(this, &ofxExpr::onChangeExpr);
+    }
+    pExpr = _pExpr;
+    if (pExpr != NULL) {
+        pExpr->addListener(this, &ofxExpr::onChangeExpr);
+    }
+}
+
+void ofxExpr::onChangeExpr(std::string &expr) {
+    notCompiled(true);
+}
+
+void ofxExpr::notCompiled(bool recompile) {
+    compiled = false;
+    if (recompile) {
+        compile();
+    }
 }

@@ -105,9 +105,9 @@ ofxVecExpr<VecType> & ofxVecExpr<VecType>::set(const std::string &value) {
 }
 
 template<typename VecType>
-ofxVecExpr<VecType> & ofxVecExpr<VecType>::set(const VecType & v) {
+ofxVecExpr<VecType> & ofxVecExpr<VecType>::set(const VecType & v, bool isExplicit) {
     for (int i=0; i<size(); i++) {
-        expr[i]->set(v[i]);
+        expr[i]->set(v[i], isExplicit);
     }
     return *this;
 }
@@ -175,6 +175,11 @@ bool ofxVecExpr<VecType>::hasExprSymbol(const std::string &name) const {
         }
     }
     return false;
+}
+
+template<typename VecType>
+bool ofxVecExpr<VecType>::isTimeDependent() const {
+    return hasExprSymbol("t") || hasExprSymbol("f");
 }
 
 template<typename VecType>

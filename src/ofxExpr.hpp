@@ -12,6 +12,7 @@ public:
     static const std::string NAME_EXPLICIT;
     
     ofxExpr();
+    ~ofxExpr();
     ofxExpr(const std::string &name, const std::string &expression, const float &value, const float &min, const float &max, bool isExplicit = false);
     ofxExpr(const std::string &name, const std::string &expression, const float &value, bool isExplicit = false);
     ofxExpr(const std::string &name, const std::string &expr);
@@ -40,7 +41,7 @@ public:
         return !compiled;
     }
     
-    ofxExpr & set(const std::string &expression, bool recompile = true);
+    ofxExpr & set(const std::string &expression);
     ofxExpr & set(const float &value, bool isExplicit = true);
     ofxExpr & set(const float &value, const float &min, const float &max, bool isExplicit = true);
     ofxExpr & set(const std::string &name, const float &value, bool isExplicit = true);
@@ -70,6 +71,7 @@ public:
     bool hasConst(const std::string &name) const;
     bool addConst(const std::string &name, const float &value, bool recompile = true);
     bool hasExprSymbol(const std::string &name) const;
+    bool isTimeDependent() const;
     bool compile();
     
     const mu::Parser &getParser() const {
@@ -101,6 +103,10 @@ public:
     void makeReferenceTo(ofxExpr & mom);
     
 private:
+    
+    void setExprParameter(const std::shared_ptr<ofParameter<std::string>> & pExpr);
+    void onChangeExpr(std::string &expr);
+    void notCompiled(bool recompile);
     
     ofxExprParser parser;
     float dummyVal;

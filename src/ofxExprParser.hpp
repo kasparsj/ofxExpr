@@ -10,20 +10,30 @@ class ofxExprParser : public mu::Parser {
 public:
     class Time {
     public:
-        float &get() {
+        void init() {
             if (!intialized) {
                 ofAddListener(ofEvents().update, this, &Time::update, OF_EVENT_ORDER_BEFORE_APP);
                 elapsedTimef = ofGetElapsedTimef();
+                frameNum = ofGetFrameNum();
                 intialized = true;
             }
+        }
+        float &getTime() {
+            init();
             return elapsedTimef;
+        }
+        float &getFrame() {
+            init();
+            return frameNum;
         }
         void update(ofEventArgs &e) {
             elapsedTimef = ofGetElapsedTimef();
+            frameNum = ofGetFrameNum();
         }
     private:
         bool intialized = false;
         float elapsedTimef;
+        float frameNum;
     };
     static Time time;
     
@@ -46,6 +56,7 @@ private:
     static float rand(const float* v, int numArgs);
     static float noise(const float* v, int numArgs);
     static float fmod(float v1, float v2);
+    static float toAndBack(const float* v, int numArgs);
     
     template<typename Function>
     static float ease(const float* v, int numArgs, Function easing, ofxExprParser *parser);

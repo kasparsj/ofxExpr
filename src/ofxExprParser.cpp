@@ -8,6 +8,7 @@ ofxExprParser::ofxExprParser() : Parser() {
     DefineFun("rand", ofxExprParser::rand, false);
     DefineFun("noise", ofxExprParser::noise, true);
     DefineFun("fmod", ofxExprParser::fmod, true);
+    DefineFun("toAndBack", ofxExprParser::toAndBack, true);
     DefineFun("elasticIn", ofxExprParser::elasticIn, userData, true);
     DefineFun("elasticOut", ofxExprParser::elasticOut, userData, true);
     DefineFun("elasticInOut", ofxExprParser::elasticInOut, userData, true);
@@ -40,7 +41,8 @@ ofxExprParser::ofxExprParser() : Parser() {
     DefineFun("quadInOut", ofxExprParser::quadInOut, userData, true);
     
     DefineOprt("%", ofxExprParser::fmod, mu::prMUL_DIV);
-    DefineVar("t", &time.get());
+    DefineVar("t", &time.getTime());
+    DefineVar("f", &time.getFrame());
     DefineVar("min", &min);
     DefineVar("max", &max);
 }
@@ -71,6 +73,26 @@ float ofxExprParser::noise(const float* v, int numArgs) {
 
 float ofxExprParser::fmod(float v1, float v2) {
     return std::fmod(v1, v2);
+}
+
+float ofxExprParser::toAndBack(const float* v, int numArgs) {
+    float from = 0;
+    float to;
+    switch (numArgs) {
+        case 2:
+            to = v[1];
+            break;
+        case 3:
+        default:
+            from = v[1];
+            to = v[2];
+            break;
+    }
+    // todo: fix for 30, 0
+    float twoV;
+    float range = (to - from);
+    twoV = std::fmod(v[0], range * 2.f);
+    return twoV > to ? to - std::fmod(twoV, range) : twoV;
 }
 
 float ofxExprParser::elasticIn(const float* v, int numArgs, const mu::UserData &userData) {

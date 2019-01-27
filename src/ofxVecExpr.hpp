@@ -19,7 +19,7 @@ public:
     VecType getMax() const;
 
     ofxVecExpr<VecType> & set(const std::string &value);
-    ofxVecExpr<VecType> & set(const VecType & v);
+    ofxVecExpr<VecType> & set(const VecType & v, bool isExplicit = true);
     ofxVecExpr<VecType> & set(const std::string& name, const VecType & v);
     ofxVecExpr<VecType> & set(const std::string& name, const VecType & v, const VecType & min, const VecType & max);
     void setMin(const VecType & min);
@@ -28,6 +28,7 @@ public:
     void setRandom();
     bool hasVar(const std::string &name) const;
     bool hasExprSymbol(const std::string &name) const;
+    bool isTimeDependent() const;
     bool addVar(const std::string &name, float &value, bool recompile = true);
     bool addDummyVar(const std::string &name, bool recompile = false);
     bool hasConst(const std::string &name) const;
