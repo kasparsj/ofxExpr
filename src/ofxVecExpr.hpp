@@ -25,7 +25,7 @@ public:
     void setMin(const VecType & min);
     void setMax(const VecType & max);
     ofxVecExpr<VecType> & setSliderMinMax(const VecType & min, const VecType & max);
-    void setRandom();
+    //void setRandom();
     bool hasVar(const std::string &name) const;
     bool hasExprSymbol(const std::string &name) const;
     bool isTimeDependent() const;

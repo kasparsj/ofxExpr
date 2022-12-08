@@ -17,7 +17,7 @@ ofxExprInputField * ofxExprInputField::setup(ofxExpr &_value, float width, float
     add(textField);
     pExpr.addListener(this, & ofxExprInputField::changeInputField);
     
-    b.height -= textField->getHeight() + spacing;
+    b.height -= textField->getHeight() + elementSpacing;
 
     ofParameter<float> pValue = *(value.getValueParameter());
     pValue.setName(value.getName() + "V");
@@ -111,7 +111,7 @@ bool ofxExprInputField::mouseScrolled(ofMouseEventArgs & args){
 }
 
 void ofxExprInputField::generateDraw(){
-    textMesh = getTextMesh("!", textPadding + b.x, header / 2 + b.y + spacingNextElement);
+    textMesh = getTextMesh("!", textPadding + b.x, defaultHeight / 2 + b.y + groupSpacing);
 }
 
 void ofxExprInputField::render(){
@@ -148,10 +148,10 @@ void ofxExprInputField::sizeChangedCB(){
         collection[i]->setPosition(collection[i]->getPosition().x, b.y);
     }
     if (value.isExplicit()) {
-        b.height = slider != NULL ? slider->getHeight() + spacing : 0;
+        b.height = slider != NULL ? slider->getHeight() + elementSpacing : 0;
     }
     else {
-        b.height = textField != NULL ? textField->getHeight() + spacing : 0;
+        b.height = textField != NULL ? textField->getHeight() + elementSpacing : 0;
     }
     if(parent){
         parent->sizeChangedCB();

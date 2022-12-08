@@ -57,7 +57,8 @@ public:
         parser.setMax(max);
     }
     ofxExpr & setSliderMinMax(const float &min, const float &max) {
-        pValue->setSliderMinMax(min, max);
+        pValue->setMin(min);
+        pValue->setMax(max);
         return *this;
     }
     void setRandom() {

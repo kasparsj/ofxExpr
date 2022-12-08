@@ -152,10 +152,10 @@ ofxVecExpr<VecType> & ofxVecExpr<VecType>::setSliderMinMax(const VecType &min, c
     return *this;
 }
 
-template<typename VecType>
-void ofxVecExpr<VecType>::setRandom() {
-    set(ofRandom(getMin(), getMax()));
-}
+//template<typename VecType>
+//void ofxVecExpr<VecType>::setRandom() {
+//    set(ofRandom(getMin(), getMax()));
+//}
 
 template<typename VecType>
 bool ofxVecExpr<VecType>::hasVar(const std::string &name) const {
