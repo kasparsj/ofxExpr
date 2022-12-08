@@ -1,4 +1,4 @@
-# ofxExpr
+# ofxExpr openFrameworks addon
 
 mathematical expression parser for strings and ofxGui, based on muParser
 
