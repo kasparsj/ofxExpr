@@ -4,6 +4,8 @@ mathematical expression parser for strings and ofxGui, based on muParser
 
 currently OS X only
 
+tested with of_v0.11.1
+
 ## examples
 
 1. arithmetic
