@@ -45,6 +45,7 @@ cout << expr3.getExpression() << " = " << expr3.get() << endl; // t = 1.2177
 4. built-in functions
 
 ```cpp
+float x = 2;
 expr4.set("rand(x)");
 expr4.addVar("x", x);
 cout << expr4.getExpression() << " = " << expr4.get() << endl; // rand(x) = 0.37822
