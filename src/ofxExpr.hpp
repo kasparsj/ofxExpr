@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ofParameter.h"
+#include "ofMain.h"
 #include "muParser.h"
 #include "ofxExprParser.hpp"
 
