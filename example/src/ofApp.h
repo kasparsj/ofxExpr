@@ -26,6 +26,7 @@ class ofApp : public ofBaseApp{
     ofxExpr expr1;
     ofxExpr expr2;
     ofxExpr expr3;
+    ofxExpr expr4;
     ofxVecExpr<glm::vec3> vecExpr;
 		
 };

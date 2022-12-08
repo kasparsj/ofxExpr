@@ -36,6 +36,15 @@ void ofApp::setup(){
     expr3.set("t");
     cout << expr3.getExpression() << " = " << expr3.get() << endl;
     
+    expr4.set("rand(x)");
+    expr4.addVar("x", x);
+    cout << expr4.getExpression() << " = " << expr4.get() << endl;
+    cout << expr4.getExpression() << " = " << expr4.get() << endl;
+    
+    expr4.set("noise(x)");
+    expr4.addVar("x", x);
+    cout << expr4.getExpression() << " = " << expr4.get() << endl;
+    
     float a = 1.f;
     cout << "a = " << a << endl;
     vecExpr[0]->set("sin(a)");
