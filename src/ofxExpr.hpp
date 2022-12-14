@@ -126,7 +126,6 @@ class ofxExpr : public ofParameterGroup {
     
 public:
     ofxExpr();
-    ofxExpr(float value);
     ofxExpr(VecType value);
     ofxExpr(const ofxExpr<VecType> &other);
     ofxExpr<VecType>& operator= (const ofxExpr<VecType>& other);
