@@ -63,7 +63,7 @@ private:
     static float rand(const float* v, int numArgs);
     static float noise(const float* v, int numArgs);
     static float fmod(float v1, float v2);
-    static float line(const float* v, int numArgs, const mu::UserData &userData);
+    static float line(void* userData, const float* v, int numArgs);
     static float toAndBack(const float* v, int numArgs);
     
     template<typename Function>
@@ -71,37 +71,37 @@ private:
     template<typename Function>
     static float ease(float time, float curTime, float minOut, float maxOut, Function easing);
 
-    static float linear(const float* v, int numArgs, const mu::UserData &userData);
-    static float elasticIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float elasticOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float elasticInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float expIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float expOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float expInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float bounceIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float bounceOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float bounceInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float cubicIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float cubicOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float cubicInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float sineIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float sineOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float sineInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float backIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float backOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float backInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float circIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float circOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float circInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float quintIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float quintOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float quintInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float quartIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float quartOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float quartInOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float quadIn(const float* v, int numArgs, const mu::UserData &userData);
-    static float quadOut(const float* v, int numArgs, const mu::UserData &userData);
-    static float quadInOut(const float* v, int numArgs, const mu::UserData &userData);
+    static float linear(void* userData, const float* v, int numArgs);
+    static float elasticIn(void* userData, const float* v, int numArgs);
+    static float elasticOut(void* userData, const float* v, int numArgs);
+    static float elasticInOut(void* userData, const float* v, int numArgs);
+    static float expIn(void* userData, const float* v, int numArgs);
+    static float expOut(void* userData, const float* v, int numArgs);
+    static float expInOut(void* userData, const float* v, int numArgs);
+    static float bounceIn(void* userData, const float* v, int numArgs);
+    static float bounceOut(void* userData, const float* v, int numArgs);
+    static float bounceInOut(void* userData, const float* v, int numArgs);
+    static float cubicIn(void* userData, const float* v, int numArgs);
+    static float cubicOut(void* userData, const float* v, int numArgs);
+    static float cubicInOut(void* userData, const float* v, int numArgs);
+    static float sineIn(void* userData, const float* v, int numArgs);
+    static float sineOut(void* userData, const float* v, int numArgs);
+    static float sineInOut(void* userData, const float* v, int numArgs);
+    static float backIn(void* userData, const float* v, int numArgs);
+    static float backOut(void* userData, const float* v, int numArgs);
+    static float backInOut(void* userData, const float* v, int numArgs);
+    static float circIn(void* userData, const float* v, int numArgs);
+    static float circOut(void* userData, const float* v, int numArgs);
+    static float circInOut(void* userData, const float* v, int numArgs);
+    static float quintIn(void* userData, const float* v, int numArgs);
+    static float quintOut(void* userData, const float* v, int numArgs);
+    static float quintInOut(void* userData, const float* v, int numArgs);
+    static float quartIn(void* userData, const float* v, int numArgs);
+    static float quartOut(void* userData, const float* v, int numArgs);
+    static float quartInOut(void* userData, const float* v, int numArgs);
+    static float quadIn(void* userData, const float* v, int numArgs);
+    static float quadOut(void* userData, const float* v, int numArgs);
+    static float quadInOut(void* userData, const float* v, int numArgs);
     
     float min, max;
     float setTimef;

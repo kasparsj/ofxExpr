@@ -4,43 +4,43 @@
 ofxExprParser::Time ofxExprParser::time;
 
 ofxExprParser::ofxExprParser() : Parser() {
-    const mu::UserData userData(this);
+    void* userData(this);
     DefineFun("rand", ofxExprParser::rand, false);
     DefineFun("noise", ofxExprParser::noise, true);
     DefineFun("fmod", ofxExprParser::fmod, true);
-    DefineFun("line", ofxExprParser::line, userData, true);
+    DefineFunUserData("line", ofxExprParser::line, userData, true);
     DefineFun("toAndBack", ofxExprParser::toAndBack, true);
-    DefineFun("linear", ofxExprParser::linear, userData, true);
-    DefineFun("elasticIn", ofxExprParser::elasticIn, userData, true);
-    DefineFun("elasticOut", ofxExprParser::elasticOut, userData, true);
-    DefineFun("elasticInOut", ofxExprParser::elasticInOut, userData, true);
-    DefineFun("expIn", ofxExprParser::expIn, userData, true);
-    DefineFun("expOut", ofxExprParser::expOut, userData, true);
-    DefineFun("expInOut", ofxExprParser::expInOut, userData, true);
-    DefineFun("bounceIn", ofxExprParser::bounceIn, userData, true);
-    DefineFun("bounceOut", ofxExprParser::bounceOut, userData, true);
-    DefineFun("bounceInOut", ofxExprParser::bounceInOut, userData, true);
-    DefineFun("cubicIn", ofxExprParser::cubicIn, userData, true);
-    DefineFun("cubicOut", ofxExprParser::cubicOut, userData, true);
-    DefineFun("cubicInOut", ofxExprParser::cubicInOut, userData, true);
-    DefineFun("sineIn", ofxExprParser::sineIn, userData, true);
-    DefineFun("sineOut", ofxExprParser::sineOut, userData, true);
-    DefineFun("sineInOut", ofxExprParser::sineInOut, userData, true);
-    DefineFun("backIn", ofxExprParser::backIn, userData, true);
-    DefineFun("backOut", ofxExprParser::backOut, userData, true);
-    DefineFun("backInOut", ofxExprParser::backInOut, userData, true);
-    DefineFun("circIn", ofxExprParser::circIn, userData, true);
-    DefineFun("circOut", ofxExprParser::circOut, userData, true);
-    DefineFun("circInOut", ofxExprParser::circInOut, userData, true);
-    DefineFun("quintIn", ofxExprParser::quintIn, userData, true);
-    DefineFun("quintOut", ofxExprParser::quintOut, userData, true);
-    DefineFun("quintInOut", ofxExprParser::quintInOut, userData, true);
-    DefineFun("quartIn", ofxExprParser::quartIn, userData, true);
-    DefineFun("quartOut", ofxExprParser::quartOut, userData, true);
-    DefineFun("quartInOut", ofxExprParser::quartInOut, userData, true);
-    DefineFun("quadIn", ofxExprParser::quadIn, userData, true);
-    DefineFun("quadOut", ofxExprParser::quadOut, userData, true);
-    DefineFun("quadInOut", ofxExprParser::quadInOut, userData, true);
+    DefineFunUserData("linear", ofxExprParser::linear, userData, true);
+    DefineFunUserData("elasticIn", ofxExprParser::elasticIn, userData, true);
+    DefineFunUserData("elasticOut", ofxExprParser::elasticOut, userData, true);
+    DefineFunUserData("elasticInOut", ofxExprParser::elasticInOut, userData, true);
+    DefineFunUserData("expIn", ofxExprParser::expIn, userData, true);
+    DefineFunUserData("expOut", ofxExprParser::expOut, userData, true);
+    DefineFunUserData("expInOut", ofxExprParser::expInOut, userData, true);
+    DefineFunUserData("bounceIn", ofxExprParser::bounceIn, userData, true);
+    DefineFunUserData("bounceOut", ofxExprParser::bounceOut, userData, true);
+    DefineFunUserData("bounceInOut", ofxExprParser::bounceInOut, userData, true);
+    DefineFunUserData("cubicIn", ofxExprParser::cubicIn, userData, true);
+    DefineFunUserData("cubicOut", ofxExprParser::cubicOut, userData, true);
+    DefineFunUserData("cubicInOut", ofxExprParser::cubicInOut, userData, true);
+    DefineFunUserData("sineIn", ofxExprParser::sineIn, userData, true);
+    DefineFunUserData("sineOut", ofxExprParser::sineOut, userData, true);
+    DefineFunUserData("sineInOut", ofxExprParser::sineInOut, userData, true);
+    DefineFunUserData("backIn", ofxExprParser::backIn, userData, true);
+    DefineFunUserData("backOut", ofxExprParser::backOut, userData, true);
+    DefineFunUserData("backInOut", ofxExprParser::backInOut, userData, true);
+    DefineFunUserData("circIn", ofxExprParser::circIn, userData, true);
+    DefineFunUserData("circOut", ofxExprParser::circOut, userData, true);
+    DefineFunUserData("circInOut", ofxExprParser::circInOut, userData, true);
+    DefineFunUserData("quintIn", ofxExprParser::quintIn, userData, true);
+    DefineFunUserData("quintOut", ofxExprParser::quintOut, userData, true);
+    DefineFunUserData("quintInOut", ofxExprParser::quintInOut, userData, true);
+    DefineFunUserData("quartIn", ofxExprParser::quartIn, userData, true);
+    DefineFunUserData("quartOut", ofxExprParser::quartOut, userData, true);
+    DefineFunUserData("quartInOut", ofxExprParser::quartInOut, userData, true);
+    DefineFunUserData("quadIn", ofxExprParser::quadIn, userData, true);
+    DefineFunUserData("quadOut", ofxExprParser::quadOut, userData, true);
+    DefineFunUserData("quadInOut", ofxExprParser::quadInOut, userData, true);
     
     DefineOprt("%", ofxExprParser::fmod, mu::prMUL_DIV);
     DefineVar("t", &time.getTime());
@@ -77,8 +77,8 @@ float ofxExprParser::fmod(float v1, float v2) {
     return std::fmod(v1, v2);
 }
 
-float ofxExprParser::line(const float* v, int numArgs, const mu::UserData &userData) {
-    float setTimef = static_cast<ofxExprParser*>(userData.ptr)->getSetTime();
+float ofxExprParser::line(void* userData, const float* v, int numArgs) {
+    float setTimef = static_cast<ofxExprParser*>(userData)->getSetTime();
     switch (numArgs) {
         case 3:
             return ofMap(time.getTime(), setTimef, setTimef + v[2], v[0], v[1], true);
@@ -108,128 +108,128 @@ float ofxExprParser::toAndBack(const float* v, int numArgs) {
     return twoV > to ? to - std::fmod(twoV, range) : twoV;
 }
 
-float ofxExprParser::linear(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::linear::easeNone, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::linear(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::linear::easeNone, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::elasticIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::elastic::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::elasticIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::elastic::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::elasticOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::elastic::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::elasticOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::elastic::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::elasticInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::elastic::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::elasticInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::elastic::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::expIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::exp::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::expIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::exp::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::expOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::exp::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::expOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::exp::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::expInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::exp::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::expInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::exp::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::bounceIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::bounce::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::bounceIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::bounce::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::bounceOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::bounce::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::bounceOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::bounce::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::bounceInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::bounce::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::bounceInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::bounce::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::cubicIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::cubic::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::cubicIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::cubic::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::cubicOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::cubic::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::cubicOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::cubic::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::cubicInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::cubic::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::cubicInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::cubic::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::sineIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::sine::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::sineIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::sine::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::sineOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::sine::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::sineOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::sine::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::sineInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::sine::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::sineInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::sine::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::backIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::back::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::backIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::back::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::backOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::back::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::backOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::back::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::backInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::back::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::backInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::back::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::circIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::circ::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::circIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::circ::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::circOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::circ::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::circOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::circ::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::circInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::circ::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::circInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::circ::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quintIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quint::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quintIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quint::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quintOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quint::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quintOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quint::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quintInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quint::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quintInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quint::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quartIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quart::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quartIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quart::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quartOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quart::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quartOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quart::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quartInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quart::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quartInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quart::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quadIn(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quad::easeIn, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quadIn(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quad::easeIn, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quadOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quad::easeOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quadOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quad::easeOut, static_cast<ofxExprParser*>(userData));
 }
 
-float ofxExprParser::quadInOut(const float* v, int numArgs, const mu::UserData &userData) {
-    return ease(v, numArgs, ofxeasing::quad::easeInOut, static_cast<ofxExprParser*>(userData.ptr));
+float ofxExprParser::quadInOut(void* userData, const float* v, int numArgs) {
+    return ease(v, numArgs, ofxeasing::quad::easeInOut, static_cast<ofxExprParser*>(userData));
 }
 
 template<typename Function>
