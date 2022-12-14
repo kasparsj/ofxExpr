@@ -2,7 +2,9 @@
 
 mathematical expression parser for strings and ofxGui, based on muParser
 
-precompiled OS X library included only (Intel and Apple Silicon), but you can compile for your system by checking out libs/muparser/src and following the instrtuctions in Install.txt file.
+precompiled OS X library included (Intel and Apple Silicon). 
+
+For Windows/Linux check out libs/muparser/src submodule and follow the instrtuctions in Install.txt file.
 
 tested with of_v0.11.1
 
