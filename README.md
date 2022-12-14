@@ -1,5 +1,7 @@
 # ofxExpr openFrameworks addon
 
+[![Build status](https://travis-ci.org/kasparsj/ofxExpr.svg?branch=master)](https://travis-ci.org/kasparsj/ofxExpr)
+
 Mathematical expression parser for strings and ofxGui, based on muParser
 
 Precompiled OS X library included (Intel and Apple Silicon). 
