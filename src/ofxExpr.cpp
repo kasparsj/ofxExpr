@@ -534,6 +534,16 @@ size_t ofxExpr<glm::vec4>::dim(){
 }
 
 template<>
+size_t ofxExpr<glm::mat2>::dim(){
+    return 4;
+}
+
+template<>
+size_t ofxExpr<glm::mat3>::dim(){
+    return 9;
+}
+
+template<>
 size_t ofxExpr<glm::mat4>::dim(){
     return 16;
 }
@@ -541,4 +551,6 @@ size_t ofxExpr<glm::mat4>::dim(){
 template class ofxExpr<glm::vec2>;
 template class ofxExpr<glm::vec3>;
 template class ofxExpr<glm::vec4>;
+template class ofxExpr<glm::mat2>;
+template class ofxExpr<glm::mat3>;
 template class ofxExpr<glm::mat4>;
