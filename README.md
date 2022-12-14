@@ -2,7 +2,7 @@
 
 mathematical expression parser for strings and ofxGui, based on muParser
 
-currently OS X only
+currently OS X only (Intel and Apple Silicon)
 
 tested with of_v0.11.1
 
