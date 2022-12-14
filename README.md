@@ -6,7 +6,7 @@ currently OS X only
 
 tested with of_v0.11.1
 
-Implemented return value types:
+Supported return value types:
 
 - float `ofxFloatExpr`
 - glm::vec2 `ofxExpr<glm::vec2>`
