@@ -82,6 +82,12 @@ void ofApp::setup(){
     matExpr.addVar("d", d);
     cout << matExpr.get() << endl;
     
+    colorExpr[0]->set("sin(t)");
+    colorExpr[1]->set("cos(t)");
+    colorExpr[2]->set("tan(t)");
+    colorExpr[3]->set("1");
+    cout << colorExpr.get() << endl;
+    
     cout << "---------------------------" << endl;
 }
 

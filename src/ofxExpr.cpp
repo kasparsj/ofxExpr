@@ -279,15 +279,10 @@ ofxExpr<VecType>::ofxExpr() : ofParameterGroup() {
 
 template<typename VecType>
 ofxExpr<VecType>::ofxExpr(VecType value) : ofxExpr<VecType>() {
-    const float* pSource = (const float*) glm::value_ptr(value);
+    const float* pSource = (const float*) value_ptr(value);
     for (int i=0; i<expr.size(); i++) {
         expr[i]->set(pSource[i]);
     }
-}
-
-template<>
-ofxExpr<float>::ofxExpr(float value) : ofxExpr<float>() {
-    expr[0]->set(value);
 }
 
 template<typename VecType>
@@ -314,22 +309,17 @@ ofxExpr<VecType>& ofxExpr<VecType>::operator= (const ofxExpr<VecType>& other) {
 template<typename VecType>
 VecType ofxExpr<VecType>::get() const {
     VecType val;
-    float *pVal = (float*) glm::value_ptr(val);
+    float *pVal = value_ptr(val);
     for (int i=0; i<expr.size(); i++) {
         pVal[i] = expr[i]->get();
     }
     return val;
 }
 
-template<>
-float ofxExpr<float>::get() const {
-    return expr[0]->get();
-}
-
 template<typename VecType>
 VecType ofxExpr<VecType>::getExplicit() const {
     VecType val;
-    float *pVal = (float*) glm::value_ptr(val);
+    float *pVal = (float*) value_ptr(val);
     for (int i=0; i<expr.size(); i++) {
         if (expr[i]->isExplicit()) {
             pVal[i] = expr[i]->getValue();
@@ -338,18 +328,10 @@ VecType ofxExpr<VecType>::getExplicit() const {
     return val;
 }
 
-template<>
-float ofxExpr<float>::getExplicit() const {
-    if (expr[0]->isExplicit()) {
-        return expr[0]->getValue();
-    }
-    return 0;
-}
-
 template<typename VecType>
 VecType ofxExpr<VecType>::getNonExplicit() const {
     VecType val;
-    float *pVal = (float*) glm::value_ptr(val);
+    float *pVal = (float*) value_ptr(val);
     for (int i=0; i<expr.size(); i++) {
         if (expr[i]->isExplicit()) {
             continue;
@@ -359,46 +341,28 @@ VecType ofxExpr<VecType>::getNonExplicit() const {
     return val;
 }
 
-template<>
-float ofxExpr<float>::getNonExplicit() const {
-    if (!expr[0]->isExplicit()) {
-        return expr[0]->getExprValue();
-    }
-    return 0;
-}
-
 template<typename VecType>
 VecType ofxExpr<VecType>::getMin() const {
     VecType min;
-    float *pMin = (float*) glm::value_ptr(min);
+    float *pMin = (float*) value_ptr(min);
     for (int i=0; i<size(); i++) {
         pMin[i] = expr[i]->getMin();
     }
     return min;
 }
 
-template<>
-float ofxExpr<float>::getMin() const {
-    return expr[0]->getMin();
-}
-
 template<typename VecType>
 VecType ofxExpr<VecType>::getMax() const {
     VecType max;
-    float *pMax = (float*) glm::value_ptr(max);
+    float *pMax = (float*) value_ptr(max);
     for (int i=0; i<size(); i++) {
         pMax[i] = expr[i]->getMax();
     }
     return max;
 }
 
-template<>
-float ofxExpr<float>::getMax() const {
-    return expr[0]->getMax();
-}
-
 template<typename VecType>
-ofxExpr<VecType>& ofxExpr<VecType>::set(const std::string &value) {
+ofxExpr<VecType>& ofxExpr<VecType>::set(const std::string& value) {
     for (int i=0; i<size(); i++) {
         expr[i]->set(value);
     }
@@ -406,94 +370,59 @@ ofxExpr<VecType>& ofxExpr<VecType>::set(const std::string &value) {
 }
 
 template<typename VecType>
-ofxExpr<VecType>& ofxExpr<VecType>::set(const VecType & v, bool isExplicit) {
-    const float *pV = (const float*) glm::value_ptr(v);
+ofxExpr<VecType>& ofxExpr<VecType>::set(const VecType& v, bool isExplicit) {
+    const float *pV = value_ptr(v);
     for (int i=0; i<size(); i++) {
         expr[i]->set(pV[i], isExplicit);
     }
     return *this;
 }
 
-template<>
-ofxExpr<float>& ofxExpr<float>::set(const float& v, bool isExplicit) {
-    expr[0]->set(v, isExplicit);
-    return *this;
-}
-
 template<typename VecType>
 ofxExpr<VecType> & ofxExpr<VecType>::set(const std::string& name, const VecType& v) {
     setName(name);
-    const float *pV = (const float*) glm::value_ptr(v);
+    const float *pV = value_ptr(v);
     for (int i=0; i<size(); i++) {
         expr[i]->set(pV[i]);
     }
     return *this;
 }
 
-template<>
-ofxExpr<float>& ofxExpr<float>::set(const std::string& name, const float& v) {
-    expr[0]->set(v);
-    return *this;
-}
-
 template<typename VecType>
 ofxExpr<VecType> & ofxExpr<VecType>::set(const std::string& name, const VecType & v, const VecType & min, const VecType & max) {
     setName(name);
-    const float *pV = (const float*) glm::value_ptr(v);
-    const float *pMin = (const float*) glm::value_ptr(min);
-    const float *pMax = (const float*) glm::value_ptr(max);
+    const float *pV = value_ptr(v);
+    const float *pMin = value_ptr(min);
+    const float *pMax = value_ptr(max);
     for (int i=0; i<size(); i++) {
         expr[i]->set(pV[i], pMin[i], pMax[i]);
     }
     return *this;
 }
 
-template<>
-ofxExpr<float> & ofxExpr<float>::set(const std::string& name, const float& v, const float& min, const float& max) {
-    setName(name);
-    expr[0]->set(v, min, max);
-    return *this;
-}
-
 template<typename VecType>
 void ofxExpr<VecType>::setMin(const VecType & min) {
-    const float *pMin = (const float*) glm::value_ptr(min);
+    const float *pMin = value_ptr(min);
     for (int i=0; i<size(); i++) {
         expr[i]->setMin(pMin[i]);
     }
 }
 
-template<>
-void ofxExpr<float>::setMin(const float& min) {
-    expr[0]->setMin(min);
-}
-
 template<typename VecType>
 void ofxExpr<VecType>::setMax(const VecType & max) {
-    const float *pMax = (const float*) glm::value_ptr(max);
+    const float *pMax = value_ptr(max);
     for (int i=0; i<size(); i++) {
         expr[i]->setMax(pMax[i]);
     }
 }
 
-template<>
-void ofxExpr<float>::setMax(const float& max) {
-    expr[0]->setMax(max);
-}
-
 template<typename VecType>
 ofxExpr<VecType> & ofxExpr<VecType>::setSliderMinMax(const VecType& min, const VecType& max) {
-    const float *pMin = (const float*) glm::value_ptr(min);
-    const float *pMax = (const float*) glm::value_ptr(max);
+    const float *pMin = value_ptr(min);
+    const float *pMax = value_ptr(max);
     for (int i=0; i<size(); i++) {
         expr[i]->setSliderMinMax(pMin[i], pMax[i]);
     }
-    return *this;
-}
-
-template<>
-ofxExpr<float> & ofxExpr<float>::setSliderMinMax(const float& min, const float& max) {
-    expr[0]->setSliderMinMax(min, max);
     return *this;
 }
 
@@ -617,6 +546,51 @@ size_t ofxExpr<glm::mat4>::dim(){
     return 16;
 }
 
+template<>
+size_t ofxExpr<ofFloatColor>::dim(){
+    return 4;
+}
+
+template<>
+float* ofxExpr<float>::value_ptr(float& v) {
+    return &v;
+}
+
+template<>
+float* ofxExpr<glm::vec2>::value_ptr(glm::vec2& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+float* ofxExpr<glm::vec3>::value_ptr(glm::vec3& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+float* ofxExpr<glm::vec4>::value_ptr(glm::vec4& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+float* ofxExpr<glm::mat2>::value_ptr(glm::mat2& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+float* ofxExpr<glm::mat3>::value_ptr(glm::mat3& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+float* ofxExpr<glm::mat4>::value_ptr(glm::mat4& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+float* ofxExpr<ofFloatColor>::value_ptr(ofFloatColor& v) {
+    return &v[0];
+}
+
 template class ofxExpr<float>; // allowed for compatability but not recommended - use ofxFloatExpr
 template class ofxExpr<glm::vec2>;
 template class ofxExpr<glm::vec3>;
@@ -624,3 +598,4 @@ template class ofxExpr<glm::vec4>;
 template class ofxExpr<glm::mat2>;
 template class ofxExpr<glm::mat3>;
 template class ofxExpr<glm::mat4>;
+template class ofxExpr<ofFloatColor>;

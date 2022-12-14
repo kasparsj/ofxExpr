@@ -28,5 +28,6 @@ class ofApp : public ofBaseApp{
     ofxFloatExpr expr4;
     ofxExpr<glm::vec3> vecExpr;
     ofxExpr<glm::mat4> matExpr;
+    ofxExpr<ofFloatColor> colorExpr;
 		
 };

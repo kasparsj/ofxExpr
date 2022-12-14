@@ -175,6 +175,8 @@ public:
         return expr.size();
     }
     static size_t dim();
+    static float* value_ptr(VecType& v);
+    static const float* value_ptr(const VecType& v);
     
 private:
     std::vector<std::shared_ptr<ofxFloatExpr>> expr;
