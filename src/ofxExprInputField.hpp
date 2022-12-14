@@ -8,9 +8,9 @@ class ofxExprInputField : public ofxGuiGroup {
     
 public:
     ofxExprInputField() {}
-    ofxExprInputField(ofxExpr _val, float width = defaultWidth, float height = defaultHeight);
+    ofxExprInputField(ofxFloatExpr& val, float width = defaultWidth, float height = defaultHeight);
     
-    ofxExprInputField * setup(ofxExpr &value, float width = defaultWidth, float height = defaultHeight);
+    ofxExprInputField * setup(ofxFloatExpr& value, float width = defaultWidth, float height = defaultHeight);
     ofxExprInputField * setup(const std::string& controlName, const float & value, const float & min, const float & max, float width = defaultWidth, float height = defaultHeight);
     
     ofAbstractParameter & getParameter();
@@ -31,7 +31,7 @@ protected:
     void changeSlider(const void * parameter, float & value);
     void changeInputField(const void * parameter, std::string & value);
     
-    ofxExpr value;
+    ofxFloatExpr value;
     ofxTextField * textField = NULL;
     ofxSlider<float> * slider = NULL;
     

@@ -1,10 +1,11 @@
+#ifndef OFXEXPR_NOGUI
 #include "ofxExprInputField.hpp"
 
-ofxExprInputField::ofxExprInputField(ofxExpr value, float width, float height){
+ofxExprInputField::ofxExprInputField(ofxFloatExpr& value, float width, float height){
     setup(value, width, height);
 }
 
-ofxExprInputField * ofxExprInputField::setup(ofxExpr &_value, float width, float height){
+ofxExprInputField * ofxExprInputField::setup(ofxFloatExpr& _value, float width, float height){
     ofxGuiGroup::setup(value.getName(), "", 0, 0);
     
     clear();
@@ -158,3 +159,4 @@ void ofxExprInputField::sizeChangedCB(){
     }
     setNeedsRedraw();
 }
+#endif

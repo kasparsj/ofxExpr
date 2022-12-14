@@ -52,12 +52,43 @@ void ofApp::setup(){
     vecExpr[2]->set("tan(a)");
     vecExpr.addVar("a", a);
     cout << vecExpr.get() << endl;
+    
+    float b = 2.f;
+    float c = 3.f;
+    float d = 4.f;
+    cout << "a = " << a << endl;
+    cout << "b = " << b << endl;
+    cout << "c = " << c << endl;
+    cout << "d = " << d << endl;
+    matExpr[0]->set("sin(a)");
+    matExpr[1]->set("cos(a)");
+    matExpr[2]->set("tan(a)");
+    matExpr[3]->set("1");
+    matExpr[4]->set("sin(b)");
+    matExpr[5]->set("cos(b)");
+    matExpr[6]->set("tan(b)");
+    matExpr[7]->set("2");
+    matExpr[8]->set("sin(c)");
+    matExpr[9]->set("cos(c)");
+    matExpr[10]->set("tan(c)");
+    matExpr[11]->set("3");
+    matExpr[12]->set("sin(d)");
+    matExpr[13]->set("cos(d)");
+    matExpr[14]->set("tan(d)");
+    matExpr[15]->set("4");
+    matExpr.addVar("a", a);
+    matExpr.addVar("b", b);
+    matExpr.addVar("c", c);
+    matExpr.addVar("d", d);
+    cout << matExpr.get() << endl;
+    
+    cout << "---------------------------" << endl;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     static int i = 0;
-    if (i < 2) {
+    if (i < 3) {
         cout << expr3.getExpression() << " = " << expr3.get() << endl;
     }
     i++;

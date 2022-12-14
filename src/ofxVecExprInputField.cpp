@@ -1,15 +1,16 @@
+#ifndef OFXEXPR_NOGUI
 #include "ofxVecExprInputField.hpp"
 #include "ofxExprInputField.hpp"
 
 using namespace std;
 
 template<class VecType>
-ofxVecExprInputField<VecType>::ofxVecExprInputField(ofxVecExpr<VecType> value, float width, float height){
+ofxVecExprInputField<VecType>::ofxVecExprInputField(ofxExpr<VecType> value, float width, float height){
     setup(value, width, height);
 }
 
 template<class VecType>
-ofxVecExprInputField<VecType> * ofxVecExprInputField<VecType>::setup(ofxVecExpr<VecType> &value, float width, float height){
+ofxVecExprInputField<VecType> * ofxVecExprInputField<VecType>::setup(ofxExpr<VecType> &value, float width, float height){
     ofxGuiGroup::setup(value.getName(), "", 0, 0);
     
     parameters.clear();
@@ -17,7 +18,7 @@ ofxVecExprInputField<VecType> * ofxVecExprInputField<VecType>::setup(ofxVecExpr<
     this->value.makeReferenceTo(value);
     
     for (size_t i = 0; i < value.dim(); i++) {
-        ofxExpr p = *value[i];
+        ofxFloatExpr p = *value[i];
         add(new ofxExprInputField(p, width, height));
     }
     
@@ -37,16 +38,17 @@ ofAbstractParameter & ofxVecExprInputField<VecType>::getParameter(){
 }
 
 template<class VecType>
-ofxVecExpr<VecType> ofxVecExprInputField<VecType>::operator=(const ofxVecExpr<VecType> & v){
+ofxExpr<VecType> ofxVecExprInputField<VecType>::operator=(const ofxExpr<VecType> & v){
     value = v;
     return value;
 }
 
 template<class VecType>
-ofxVecExprInputField<VecType>::operator const ofxVecExpr<VecType> & (){
+ofxVecExprInputField<VecType>::operator const ofxExpr<VecType> & (){
     return value;
 }
 
 template class ofxVecExprInputField<glm::vec2>;
 template class ofxVecExprInputField<glm::vec3>;
 template class ofxVecExprInputField<glm::vec4>;
+#endif

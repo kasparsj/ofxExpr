@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxExpr.hpp"
-#include "ofxVecExpr.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -23,10 +22,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-    ofxExpr expr1;
-    ofxExpr expr2;
-    ofxExpr expr3;
-    ofxExpr expr4;
-    ofxVecExpr<glm::vec3> vecExpr;
+    ofxFloatExpr expr1;
+    ofxFloatExpr expr2;
+    ofxFloatExpr expr3;
+    ofxFloatExpr expr4;
+    ofxExpr<glm::vec3> vecExpr;
+    ofxExpr<glm::mat4> matExpr;
 		
 };
