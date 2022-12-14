@@ -6,6 +6,16 @@ currently OS X only
 
 tested with of_v0.11.1
 
+Supported return value types:
+
+- float `ofxFloatExpr`
+- glm::vec2 `ofxExpr<glm::vec2>`
+- glm::vec3 `ofxExpr<glm::vec3>`
+- glm::vec4 `ofxExpr<glm::vec4>`
+- glm::mat2 `ofxExpr<glm::mat2>`
+- glm::mat3 `ofxExpr<glm::mat3>`
+- glm::mat4 `ofxExpr<glm::mat4>`
+
 ## examples
 
 1. arithmetic
@@ -15,6 +25,7 @@ float x = 123.0;
 float y = 678.0;
 float z = 57.0;
 
+ofxFloatExpr expr1;
 expr1.set("x * y + 3");
 expr1.addVar("x", x, false);
 expr1.addVar("y", y);
@@ -30,6 +41,7 @@ cout << expr1.getExpression() << " = " << expr1.get() << endl; // x * y + 3 = 83
 
 ```cpp
 float x = 2;
+ofxFloatExpr expr2;
 expr2.set("sin(x)");
 expr2.addVar("x", x);
 cout << expr2.getExpression() << " = " << expr2.get() << endl; // sin(x) = 0.909297
@@ -40,6 +52,7 @@ cout << expr2.getExpression() << " = " << expr2.get() << endl; // sin(x) = 0.909
 `t = ofGetElapsedTimef();`
 
 ```cpp
+ofxFloatExpr expr3;
 expr3.set("t");
 cout << expr3.getExpression() << " = " << expr3.get() << endl; // t = 1.2177
 ```
@@ -48,6 +61,7 @@ cout << expr3.getExpression() << " = " << expr3.get() << endl; // t = 1.2177
 
 ```cpp
 float x = 2;
+ofxFloatExpr expr4;
 expr4.set("rand(x)");
 expr4.addVar("x", x);
 cout << expr4.getExpression() << " = " << expr4.get() << endl; // rand(x) = 0.37822
