@@ -8,13 +8,13 @@ tested with of_v0.11.1
 
 Implements:
 
-- ofxFloatExpr
-- ofxExpr<glm::vec2>
-- ofxExpr<glm::vec3>
-- ofxExpr<glm::vec4>
-- ofxExpr<glm::mat2>
-- ofxExpr<glm::mat3>
-- ofxExpr<glm::mat4>
+- `ofxFloatExpr`
+- `ofxExpr<glm::vec2>`
+- `ofxExpr<glm::vec3>`
+- `ofxExpr<glm::vec4>`
+- `ofxExpr<glm::mat2>`
+- `ofxExpr<glm::mat3>`
+- `ofxExpr<glm::mat4>`
 
 ## examples
 
