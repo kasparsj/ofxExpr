@@ -6,7 +6,7 @@ precompiled OS X library included (Intel and Apple Silicon).
 
 For Windows/Linux check out libs/muparser/src submodule and follow the instrtuctions in Install.txt file.
 
-tested with of_v0.11.1 (C++ 11)
+tested with openFrameworks version 0.11.1 (C++ 11)
 
 Supported return value types:
 
