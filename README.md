@@ -1,12 +1,12 @@
 # ofxExpr openFrameworks addon
 
-mathematical expression parser for strings and ofxGui, based on muParser
+Mathematical expression parser for strings and ofxGui, based on muParser
 
-precompiled OS X library included (Intel and Apple Silicon). 
+Precompiled OS X library included (Intel and Apple Silicon). 
 
 For Windows/Linux check out libs/muparser/src submodule and follow the instrtuctions in Install.txt file.
 
-tested with openFrameworks version 0.11.1 (C++ 11)
+Tested with openFrameworks version 0.11.1 (C++ 11)
 
 Supported return value types:
 
