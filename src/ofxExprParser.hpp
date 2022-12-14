@@ -39,23 +39,31 @@ public:
     
     ofxExprParser();
     using ParserBase::operator=;
+    void set(const std::string& expr) {
+        SetExpr(expr);
+        setTimef = time.getTime();
+    }
     void setMin(const float &m) {
         min = m;
     }
     void setMax(const float &m) {
         max = m;
     }
-    const float &getMin() const {
+    const float& getMin() const {
         return min;
     }
-    const float &getMax() const {
+    const float& getMax() const {
         return max;
+    }
+    const float& getSetTime() const {
+        return setTimef;
     }
     
 private:
     static float rand(const float* v, int numArgs);
     static float noise(const float* v, int numArgs);
     static float fmod(float v1, float v2);
+    static float line(const float* v, int numArgs, const mu::UserData &userData);
     static float toAndBack(const float* v, int numArgs);
     
     template<typename Function>
@@ -63,6 +71,7 @@ private:
     template<typename Function>
     static float ease(float time, float curTime, float minOut, float maxOut, Function easing);
 
+    static float linear(const float* v, int numArgs, const mu::UserData &userData);
     static float elasticIn(const float* v, int numArgs, const mu::UserData &userData);
     static float elasticOut(const float* v, int numArgs, const mu::UserData &userData);
     static float elasticInOut(const float* v, int numArgs, const mu::UserData &userData);
@@ -95,5 +104,6 @@ private:
     static float quadInOut(const float* v, int numArgs, const mu::UserData &userData);
     
     float min, max;
+    float setTimef;
     
 };

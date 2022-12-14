@@ -89,6 +89,10 @@ void ofApp::setup(){
     cout << colorExpr.get() << endl;
     
     cout << "---------------------------" << endl;
+    
+    lineExpr.set("line(10, 900, 10)");
+    linearExpr.set("linear(t, 10, 0.1, 10)*90");
+    expExpr.set("expIn(t, 10, 0.1, 10)*90");
 }
 
 //--------------------------------------------------------------
@@ -102,7 +106,10 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-
+    ofSetColor(ofColor::red);
+    ofDrawLine(10, 10, lineExpr.get(), 10);
+    ofDrawLine(10, 20, linearExpr.get(), 20);
+    ofDrawLine(10, 30, expExpr.get(), 30);
 }
 
 //--------------------------------------------------------------

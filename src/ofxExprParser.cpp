@@ -8,7 +8,9 @@ ofxExprParser::ofxExprParser() : Parser() {
     DefineFun("rand", ofxExprParser::rand, false);
     DefineFun("noise", ofxExprParser::noise, true);
     DefineFun("fmod", ofxExprParser::fmod, true);
+    DefineFun("line", ofxExprParser::line, userData, true);
     DefineFun("toAndBack", ofxExprParser::toAndBack, true);
+    DefineFun("linear", ofxExprParser::linear, userData, true);
     DefineFun("elasticIn", ofxExprParser::elasticIn, userData, true);
     DefineFun("elasticOut", ofxExprParser::elasticOut, userData, true);
     DefineFun("elasticInOut", ofxExprParser::elasticInOut, userData, true);
@@ -75,6 +77,17 @@ float ofxExprParser::fmod(float v1, float v2) {
     return std::fmod(v1, v2);
 }
 
+float ofxExprParser::line(const float* v, int numArgs, const mu::UserData &userData) {
+    float setTimef = static_cast<ofxExprParser*>(userData.ptr)->getSetTime();
+    switch (numArgs) {
+        case 3:
+            return ofMap(time.getTime(), setTimef, setTimef + v[2], v[0], v[1], true);
+        case 2:
+        default:
+            return ofMap(time.getTime(), setTimef, setTimef + v[1], 0, v[0], true);
+    }
+}
+
 float ofxExprParser::toAndBack(const float* v, int numArgs) {
     float from = 0;
     float to;
@@ -93,6 +106,10 @@ float ofxExprParser::toAndBack(const float* v, int numArgs) {
     float range = (to - from);
     twoV = std::fmod(v[0], range * 2.f);
     return twoV > to ? to - std::fmod(twoV, range) : twoV;
+}
+
+float ofxExprParser::linear(const float* v, int numArgs, const mu::UserData &userData) {
+    return ease(v, numArgs, ofxeasing::linear::easeNone, static_cast<ofxExprParser*>(userData.ptr));
 }
 
 float ofxExprParser::elasticIn(const float* v, int numArgs, const mu::UserData &userData) {

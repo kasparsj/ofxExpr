@@ -206,7 +206,7 @@ bool ofxExpr_<Type>::isTimeDependent() const {
 template<typename Type>
 bool ofxExpr_<Type>::compile() {
     try {
-        parser.SetExpr(pExpr->get());
+        parser.set(pExpr->get());
         compiled = true;
     }
     catch (mu::Parser::exception_type &e) {
