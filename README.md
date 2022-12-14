@@ -6,15 +6,15 @@ currently OS X only
 
 tested with of_v0.11.1
 
-Implements:
+Implemented return value types:
 
-- `ofxFloatExpr`
-- `ofxExpr<glm::vec2>`
-- `ofxExpr<glm::vec3>`
-- `ofxExpr<glm::vec4>`
-- `ofxExpr<glm::mat2>`
-- `ofxExpr<glm::mat3>`
-- `ofxExpr<glm::mat4>`
+- float `ofxFloatExpr`
+- glm::vec2 `ofxExpr<glm::vec2>`
+- glm::vec3 `ofxExpr<glm::vec3>`
+- glm::vec4 `ofxExpr<glm::vec4>`
+- glm::mat2 `ofxExpr<glm::mat2>`
+- glm::mat3 `ofxExpr<glm::mat3>`
+- glm::mat4 `ofxExpr<glm::mat4>`
 
 ## examples
 
