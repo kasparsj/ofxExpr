@@ -74,21 +74,21 @@ Type ofxExpr_<Type>::get() const  {
 }
 
 template<typename Type>
-ofxExpr_<Type> & ofxExpr_<Type>::set(const std::string &expression) {
+ofxExpr_<Type>& ofxExpr_<Type>::set(const std::string& expression) {
     pExpr->set(expression);
     pExplicit->set(false);
     return *this;
 }
 
 template<typename Type>
-ofxExpr_<Type> & ofxExpr_<Type>::set(const Type &value, bool isExplicit) {
+ofxExpr_<Type>& ofxExpr_<Type>::set(const Type& value, bool isExplicit) {
     pValue->set(value);
     pExplicit->set(isExplicit);
     return *this;
 }
 
 template<typename Type>
-ofxExpr_<Type> & ofxExpr_<Type>::set(const Type &value, const Type &min, const Type &max, bool isExplicit) {
+ofxExpr_<Type>& ofxExpr_<Type>::set(const Type &value, const Type &min, const Type &max, bool isExplicit) {
     pValue->set(NAME_VALUE, value, min, max);
     parser.setMin(min);
     parser.setMax(max);
@@ -372,8 +372,8 @@ ofxExpr<VecType>& ofxExpr<VecType>::set(const std::string& value) {
 template<typename VecType>
 ofxExpr<VecType>& ofxExpr<VecType>::set(const std::vector<std::string>& value, int i) {
     size_t total = MIN(size(), i+value.size());
-    for (i; i<total; i++) {
-        expr[i]->set(value[i]);
+    for (int j=i; j<total; j++) {
+        expr[j]->set(value[j-i]);
     }
     return *this;
 }
