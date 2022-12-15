@@ -370,6 +370,14 @@ ofxExpr<VecType>& ofxExpr<VecType>::set(const std::string& value) {
 }
 
 template<typename VecType>
+ofxExpr<VecType>& ofxExpr<VecType>::set(const std::vector<std::string>& value) {
+    for (int i=0; i<size(); i++) {
+        expr[i]->set(value[i]);
+    }
+    return *this;
+}
+
+template<typename VecType>
 ofxExpr<VecType>& ofxExpr<VecType>::set(const VecType& v, bool isExplicit) {
     const float *pV = value_ptr(v);
     for (int i=0; i<size(); i++) {
@@ -547,8 +555,18 @@ size_t ofxExpr<glm::mat4>::dim(){
 }
 
 template<>
+size_t ofxExpr<glm::quat>::dim(){
+    return 4;
+}
+
+template<>
 size_t ofxExpr<ofFloatColor>::dim(){
     return 4;
+}
+
+template<>
+size_t ofxExpr<ofxExprNode>::dim(){
+    return 9;
 }
 
 template<>
@@ -587,7 +605,17 @@ float* ofxExpr<glm::mat4>::value_ptr(glm::mat4& v) {
 }
 
 template<>
+float* ofxExpr<glm::quat>::value_ptr(glm::quat& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
 float* ofxExpr<ofFloatColor>::value_ptr(ofFloatColor& v) {
+    return &v[0];
+}
+
+template<>
+float* ofxExpr<ofxExprNode>::value_ptr(ofxExprNode& v) {
     return &v[0];
 }
 
@@ -598,4 +626,6 @@ template class ofxExpr<glm::vec4>;
 template class ofxExpr<glm::mat2>;
 template class ofxExpr<glm::mat3>;
 template class ofxExpr<glm::mat4>;
+template class ofxExpr<glm::quat>;
 template class ofxExpr<ofFloatColor>;
+template class ofxExpr<ofxExprNode>;

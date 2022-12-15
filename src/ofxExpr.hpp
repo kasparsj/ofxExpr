@@ -136,20 +136,21 @@ public:
     VecType getMin() const;
     VecType getMax() const;
 
-    ofxExpr<VecType> & set(const std::string &value);
-    ofxExpr<VecType> & set(const VecType & v, bool isExplicit = true);
-    ofxExpr<VecType> & set(const std::string& name, const VecType & v);
-    ofxExpr<VecType> & set(const std::string& name, const VecType & v, const VecType & min, const VecType & max);
-    void setMin(const VecType & min);
-    void setMax(const VecType & max);
-    ofxExpr<VecType> & setSliderMinMax(const VecType & min, const VecType & max);
-    bool hasVar(const std::string &name) const;
-    bool hasExprSymbol(const std::string &name) const;
+    ofxExpr<VecType>& set(const std::string& value);
+    ofxExpr<VecType>& set(const std::vector<std::string>& value);
+    ofxExpr<VecType>& set(const VecType& v, bool isExplicit = true);
+    ofxExpr<VecType>& set(const std::string& name, const VecType& v);
+    ofxExpr<VecType>& set(const std::string& name, const VecType& v, const VecType& min, const VecType& max);
+    void setMin(const VecType& min);
+    void setMax(const VecType& max);
+    ofxExpr<VecType> & setSliderMinMax(const VecType& min, const VecType& max);
+    bool hasVar(const std::string& name) const;
+    bool hasExprSymbol(const std::string& name) const;
     bool isTimeDependent() const;
-    bool addVar(const std::string &name, float &value, bool recompile = true);
-    bool addDummyVar(const std::string &name, bool recompile = false);
-    bool hasConst(const std::string &name) const;
-    bool addConst(const std::string &name, const float &value, bool recompile = true);
+    bool addVar(const std::string& name, float& value, bool recompile = true);
+    bool addDummyVar(const std::string& name, bool recompile = false);
+    bool hasConst(const std::string& name) const;
+    bool addConst(const std::string& name, const float& value, bool recompile = true);
     bool compile();
     bool isExplicit() const;
     
@@ -181,4 +182,13 @@ public:
 private:
     std::vector<std::shared_ptr<ofxFloatExpr>> expr;
     
+};
+
+class ofxExprNode {
+public:
+    float& operator [] (std::size_t n) {
+        return values[n];
+    }
+private:
+    float values[9] = {0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f, 1.f, 1.f};
 };
