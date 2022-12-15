@@ -370,8 +370,9 @@ ofxExpr<VecType>& ofxExpr<VecType>::set(const std::string& value) {
 }
 
 template<typename VecType>
-ofxExpr<VecType>& ofxExpr<VecType>::set(const std::vector<std::string>& value) {
-    for (int i=0; i<size(); i++) {
+ofxExpr<VecType>& ofxExpr<VecType>::set(const std::vector<std::string>& value, int i) {
+    size_t total = MIN(size(), i+value.size());
+    for (i; i<total; i++) {
         expr[i]->set(value[i]);
     }
     return *this;

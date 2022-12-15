@@ -137,7 +137,7 @@ public:
     VecType getMax() const;
 
     ofxExpr<VecType>& set(const std::string& value);
-    ofxExpr<VecType>& set(const std::vector<std::string>& value);
+    ofxExpr<VecType>& set(const std::vector<std::string>& value, int i = 0);
     ofxExpr<VecType>& set(const VecType& v, bool isExplicit = true);
     ofxExpr<VecType>& set(const std::string& name, const VecType& v);
     ofxExpr<VecType>& set(const std::string& name, const VecType& v, const VecType& min, const VecType& max);
