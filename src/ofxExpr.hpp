@@ -189,6 +189,15 @@ public:
     float& operator [] (std::size_t n) {
         return values[n];
     }
+    glm::mat4 getLocalTransformMatrix() {
+        node.setPosition(values[0], values[1], values[2]);
+        ofQuaternion orientation;
+        orientation.makeRotate(values[4], ofVec3f(1.0, 0.0, 0.0), values[5], ofVec3f(0.0, 1.0, 0.0), values[6], ofVec3f(0.0, 0.0, 1.0));
+        node.setOrientation(node.getOrientationQuat() * glm::quat(orientation));
+        node.setScale(values[6], values[7], values[8]);
+        return node.getLocalTransformMatrix();
+    }
 private:
     float values[9] = {0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f, 1.f, 1.f};
+    ofNode node;
 };
