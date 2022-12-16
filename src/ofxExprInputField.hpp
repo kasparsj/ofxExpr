@@ -8,9 +8,9 @@ class ofxExprInputField : public ofxGuiGroup {
     
 public:
     ofxExprInputField() {}
-    ofxExprInputField(ofxFloatExpr& val, float width = defaultWidth, float height = defaultHeight);
+    ofxExprInputField(const ofxFloatExpr& val, float width = defaultWidth, float height = defaultHeight);
     
-    ofxExprInputField * setup(ofxFloatExpr& value, float width = defaultWidth, float height = defaultHeight);
+    ofxExprInputField * setup(const ofxFloatExpr& value, float width = defaultWidth, float height = defaultHeight);
     ofxExprInputField * setup(const std::string& controlName, const float & value, const float & min, const float & max, float width = defaultWidth, float height = defaultHeight);
     
     ofAbstractParameter & getParameter();

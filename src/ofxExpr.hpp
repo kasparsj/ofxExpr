@@ -35,20 +35,20 @@ public:
     Type getMax() const {
         return pValue->getMax();
     }
-    const bool isExplicit() const {
+    bool isExplicit() const {
         return pExplicit->get();
     }
-    const bool hasError() const {
+    bool hasError() const {
         return !compiled;
     }
     
-    ofxExpr_ & set(const std::string &expression);
-    ofxExpr_ & set(const Type &value, bool isExplicit = true);
-    ofxExpr_ & set(const Type &value, const Type &min, const Type &max, bool isExplicit = true);
-    ofxExpr_ & set(const std::string &name, const Type &value, bool isExplicit = true);
-    ofxExpr_ & set(const std::string &name, const Type &value, const Type &min, const Type &max, bool isExplicit = true);
-    ofxExpr_ & set(const std::string & name, const std::string &expression, const Type &value, const Type &min, const Type &max, bool isExplicit = false);
-    ofxExpr_ & setExplicit(bool isExplicit);
+    ofxExpr_& set(const std::string &expression);
+    ofxExpr_& set(const Type &value, bool isExplicit = true);
+    ofxExpr_& set(const Type &value, const Type &min, const Type &max, bool isExplicit = true);
+    ofxExpr_& set(const std::string &name, const Type &value, bool isExplicit = true);
+    ofxExpr_& set(const std::string &name, const Type &value, const Type &min, const Type &max, bool isExplicit = true);
+    ofxExpr_& set(const std::string & name, const std::string &expression, const Type &value, const Type &min, const Type &max, bool isExplicit = false);
+    ofxExpr_& setExplicit(bool isExplicit);
     void setMin(const Type &min) {
         pValue->setMin(min);
         parser.setMin(min);
@@ -102,7 +102,7 @@ public:
     bool operator== (const ofxExpr_ &e2) const;
     bool operator!= (const ofxExpr_ &e2) const;
     std::shared_ptr<ofAbstractParameter> newReference() const;
-    void makeReferenceTo(ofxExpr_ & mom);
+    void makeReferenceTo(const ofxExpr_ & mom);
     
 private:
     

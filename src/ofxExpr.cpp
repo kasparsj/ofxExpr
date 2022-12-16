@@ -126,7 +126,7 @@ ofxExpr_<Type> & ofxExpr_<Type>::set(const std::string &name, const std::string 
 }
 
 template<typename Type>
-ofxExpr_<Type> & ofxExpr_<Type>::setExplicit(bool isExplicit) {
+ofxExpr_<Type>& ofxExpr_<Type>::setExplicit(bool isExplicit) {
     pExplicit->set(isExplicit);
     return *this;
 }
@@ -234,7 +234,7 @@ std::shared_ptr<ofAbstractParameter> ofxExpr_<Type>::newReference() const{
 }
 
 template<typename Type>
-void ofxExpr_<Type>::makeReferenceTo(ofxExpr_ & mom) {
+void ofxExpr_<Type>::makeReferenceTo(const ofxExpr_ & mom) {
     setName(mom.getName());
     setExprParameter(mom.getExpressionParameter());
     pValue = mom.getValueParameter();
@@ -576,7 +576,17 @@ float* ofxExpr<float>::value_ptr(float& v) {
 }
 
 template<>
+const float* ofxExpr<float>::value_ptr(const float& v) {
+    return &v;
+}
+
+template<>
 float* ofxExpr<glm::vec2>::value_ptr(glm::vec2& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+const float* ofxExpr<glm::vec2>::value_ptr(const glm::vec2& v) {
     return glm::value_ptr(v);
 }
 
@@ -586,7 +596,17 @@ float* ofxExpr<glm::vec3>::value_ptr(glm::vec3& v) {
 }
 
 template<>
+const float* ofxExpr<glm::vec3>::value_ptr(const glm::vec3& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
 float* ofxExpr<glm::vec4>::value_ptr(glm::vec4& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+const float* ofxExpr<glm::vec4>::value_ptr(const glm::vec4& v) {
     return glm::value_ptr(v);
 }
 
@@ -620,6 +640,7 @@ float* ofxExpr<ofxExprNode>::value_ptr(ofxExprNode& v) {
     return &v[0];
 }
 
+template class ofxExpr_<float>;
 template class ofxExpr<float>; // allowed for compatability but not recommended - use ofxFloatExpr
 template class ofxExpr<glm::vec2>;
 template class ofxExpr<glm::vec3>;
