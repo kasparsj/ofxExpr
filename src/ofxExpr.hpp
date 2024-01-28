@@ -68,13 +68,13 @@ public:
     
     const Type getExprValue() const;
     bool hasVar(const std::string &name) const;
-    bool addVar(const std::string &name, Type &value, bool recompile = true);
+    bool addVar(const std::string &name, Type &value, bool recompile = true, bool setTime = true);
     bool addDummyVar(const std::string &name, bool recompile = true);
     bool hasConst(const std::string &name) const;
     bool addConst(const std::string &name, const Type &value, bool recompile = true);
     bool hasExprSymbol(const std::string &name) const;
     bool isTimeDependent() const;
-    bool compile();
+    bool compile(bool setTime = true);
     
     const mu::Parser &getParser() const {
         return parser;
@@ -108,7 +108,7 @@ private:
     
     void setExprParameter(const std::shared_ptr<ofParameter<std::string>> & pExpr);
     void onChangeExpr(std::string &expr);
-    void notCompiled(bool recompile);
+    void notCompiled(bool recompile, bool setTime = true);
     
     ofxExprParser parser;
     float dummyVal;
@@ -147,11 +147,11 @@ public:
     bool hasVar(const std::string& name) const;
     bool hasExprSymbol(const std::string& name) const;
     bool isTimeDependent() const;
-    bool addVar(const std::string& name, float& value, bool recompile = true);
+    bool addVar(const std::string& name, float& value, bool recompile = true, bool setTime = true);
     bool addDummyVar(const std::string& name, bool recompile = false);
     bool hasConst(const std::string& name) const;
     bool addConst(const std::string& name, const float& value, bool recompile = true);
-    bool compile();
+    bool compile(bool setTime = true);
     bool isExplicit() const;
     
     using ofParameterGroup::get;
@@ -189,12 +189,21 @@ public:
     float& operator [] (std::size_t n) {
         return values[n];
     }
-    glm::mat4 getLocalTransformMatrix() {
-        node.setPosition(values[0], values[1], values[2]);
+    glm::vec3 getPosition() {
+        return glm::vec3(values[0], values[1], values[2]);
+    }
+    glm::quat getOrientation() {
         ofQuaternion orientation;
         orientation.makeRotate(values[4], ofVec3f(1.0, 0.0, 0.0), values[5], ofVec3f(0.0, 1.0, 0.0), values[6], ofVec3f(0.0, 0.0, 1.0));
-        node.setOrientation(node.getOrientationQuat() * glm::quat(orientation));
-        node.setScale(values[6], values[7], values[8]);
+        return glm::quat(orientation);
+    }
+    glm::vec3 getScale() {
+        return glm::vec3(values[6], values[7], values[8]);
+    }
+    glm::mat4 getLocalTransformMatrix() {
+        node.setPosition(getPosition());
+        node.setOrientation(node.getOrientationQuat() * getOrientation());
+        node.setScale(getScale());
         return node.getLocalTransformMatrix();
     }
 private:

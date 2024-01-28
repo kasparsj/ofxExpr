@@ -39,9 +39,11 @@ public:
     
     ofxExprParser();
     using ParserBase::operator=;
-    void set(const std::string& expr) {
+    void set(const std::string& expr, bool setTime = true) {
         SetExpr(expr);
-        setTimef = time.getTime();
+        if (setTime) {
+            setTimef = time.getTime();
+        }
     }
     void setMin(const float &m) {
         min = m;

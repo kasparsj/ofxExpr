@@ -156,9 +156,9 @@ bool ofxExpr_<Type>::hasVar(const std::string &name) const {
 }
 
 template<typename Type>
-bool ofxExpr_<Type>::addVar(const std::string &name, Type &value, bool recompile) {
+bool ofxExpr_<Type>::addVar(const std::string &name, Type &value, bool recompile, bool setTime) {
     parser.DefineVar(name, &value);
-    notCompiled(recompile);
+    notCompiled(recompile, setTime);
     return true;
 }
 
@@ -204,9 +204,9 @@ bool ofxExpr_<Type>::isTimeDependent() const {
 }
 
 template<typename Type>
-bool ofxExpr_<Type>::compile() {
+bool ofxExpr_<Type>::compile(bool setTime) {
     try {
-        parser.set(pExpr->get());
+        parser.set(pExpr->get(), setTime);
         compiled = true;
     }
     catch (mu::Parser::exception_type &e) {
@@ -259,7 +259,7 @@ void ofxExpr_<Type>::onChangeExpr(std::string &expr) {
 }
 
 template<typename Type>
-void ofxExpr_<Type>::notCompiled(bool recompile) {
+void ofxExpr_<Type>::notCompiled(bool recompile, bool setTime) {
     compiled = false;
     if (recompile) {
         compile();
@@ -461,9 +461,9 @@ bool ofxExpr<VecType>::isTimeDependent() const {
 }
 
 template<typename VecType>
-bool ofxExpr<VecType>::addVar(const std::string &name, float &value, bool recompile) {
+bool ofxExpr<VecType>::addVar(const std::string &name, float &value, bool recompile, bool setTime) {
     for (int i=0; i<size(); i++) {
-        expr[i]->addVar(name, value, recompile);
+        expr[i]->addVar(name, value, recompile, setTime);
     }
 }
 
@@ -492,9 +492,9 @@ bool ofxExpr<VecType>::addConst(const std::string &name, const float &value, boo
 }
 
 template<typename VecType>
-bool ofxExpr<VecType>::compile() {
+bool ofxExpr<VecType>::compile(bool setTime) {
     for (int i=0; i<size(); i++) {
-        expr[i]->compile();
+        expr[i]->compile(setTime);
     }
 }
 
