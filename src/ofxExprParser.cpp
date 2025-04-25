@@ -51,6 +51,9 @@ ofxExprParser::ofxExprParser() : Parser() {
 
 float ofxExprParser::rand(const float* v, int numArgs) {
     switch (numArgs) {
+        case 0:
+            // todo: does not work?
+            return ofRandom(1.f);
         case 1:
             return ofRandom(v[0]);
         case 2:

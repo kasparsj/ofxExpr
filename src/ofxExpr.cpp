@@ -262,7 +262,7 @@ template<typename Type>
 void ofxExpr_<Type>::notCompiled(bool recompile, bool setTime) {
     compiled = false;
     if (recompile) {
-        compile();
+        compile(setTime);
     }
 }
 
