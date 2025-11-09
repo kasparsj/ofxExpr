@@ -20,6 +20,11 @@ ofxExpr_<Type>::ofxExpr_() : ofParameterGroup() {
 }
 
 template<typename Type>
+ofxExpr_<Type>::ofxExpr_(const std::string &name, const std::string &expression, const Type &value, const Type &min, const Type &max, bool isExplicit) : ofxExpr_() {
+    set(name, expression, value, min, max, isExplicit);
+}
+
+template<typename Type>
 ofxExpr_<Type>::ofxExpr_(const std::string &name, const std::string &expression, const Type &value, bool isExplicit) : ofxExpr_() {
     set(expression);
     set(name, value, isExplicit);
@@ -462,16 +467,20 @@ bool ofxExpr<VecType>::isTimeDependent() const {
 
 template<typename VecType>
 bool ofxExpr<VecType>::addVar(const std::string &name, float &value, bool recompile, bool setTime) {
+    bool result = true;
     for (int i=0; i<size(); i++) {
-        expr[i]->addVar(name, value, recompile, setTime);
+        result = result && expr[i]->addVar(name, value, recompile, setTime);
     }
+    return result;
 }
 
 template<typename VecType>
 bool ofxExpr<VecType>::addDummyVar(const std::string &name, bool recompile) {
+    bool result = true;
     for (int i=0; i<size(); i++) {
-        expr[i]->addDummyVar(name, recompile);
+        result = result && expr[i]->addDummyVar(name, recompile);
     }
+    return result;
 }
 
 template<typename VecType>
@@ -486,16 +495,20 @@ bool ofxExpr<VecType>::hasConst(const std::string &name) const {
 
 template<typename VecType>
 bool ofxExpr<VecType>::addConst(const std::string &name, const float &value, bool recompile) {
+    bool result = true;
     for (int i=0; i<size(); i++) {
-        expr[i]->addConst(name, value, recompile);
+        result = result && expr[i]->addConst(name, value, recompile);
     }
+    return result;
 }
 
 template<typename VecType>
 bool ofxExpr<VecType>::compile(bool setTime) {
+    bool result = true;
     for (int i=0; i<size(); i++) {
-        expr[i]->compile(setTime);
+        result = result && expr[i]->compile(setTime);
     }
+    return result;
 }
 
 template<typename VecType>
@@ -616,7 +629,17 @@ float* ofxExpr<glm::mat2>::value_ptr(glm::mat2& v) {
 }
 
 template<>
+const float* ofxExpr<glm::mat2>::value_ptr(const glm::mat2& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
 float* ofxExpr<glm::mat3>::value_ptr(glm::mat3& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+const float* ofxExpr<glm::mat3>::value_ptr(const glm::mat3& v) {
     return glm::value_ptr(v);
 }
 
@@ -626,7 +649,17 @@ float* ofxExpr<glm::mat4>::value_ptr(glm::mat4& v) {
 }
 
 template<>
+const float* ofxExpr<glm::mat4>::value_ptr(const glm::mat4& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
 float* ofxExpr<glm::quat>::value_ptr(glm::quat& v) {
+    return glm::value_ptr(v);
+}
+
+template<>
+const float* ofxExpr<glm::quat>::value_ptr(const glm::quat& v) {
     return glm::value_ptr(v);
 }
 
@@ -636,7 +669,17 @@ float* ofxExpr<ofFloatColor>::value_ptr(ofFloatColor& v) {
 }
 
 template<>
+const float* ofxExpr<ofFloatColor>::value_ptr(const ofFloatColor& v) {
+    return &v[0];
+}
+
+template<>
 float* ofxExpr<ofxExprNode>::value_ptr(ofxExprNode& v) {
+    return &v[0];
+}
+
+template<>
+const float* ofxExpr<ofxExprNode>::value_ptr(const ofxExprNode& v) {
     return &v[0];
 }
 

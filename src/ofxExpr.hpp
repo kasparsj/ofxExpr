@@ -189,6 +189,9 @@ public:
     float& operator [] (std::size_t n) {
         return values[n];
     }
+    const float& operator [] (std::size_t n) const {
+        return values[n];
+    }
     glm::vec3 getPosition() {
         return glm::vec3(values[0], values[1], values[2]);
     }
